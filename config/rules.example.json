@@ -1,0 +1,10 @@
+[{
+  "id":"support-ready-for-review",
+  "version":"1.0.0",
+  "enabled":false,
+  "workspaceId":"1230709",
+  "listIds":["901300499191"],
+  "event":"taskStatusUpdated",
+  "condition":{"statusEquals":"ready for qa"},
+  "action":{"kind":"propose-task-status","status":"ready for internal review"}
+}]

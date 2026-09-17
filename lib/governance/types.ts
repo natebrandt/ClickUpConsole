@@ -1,0 +1,6 @@
+export type Status = {id?:string;status:string;type:string;color:string;orderindex:number};
+export type Field = {id:string;name:string;type:string;required:boolean|null;type_config:Record<string,unknown>};
+export type ListRecord = {id:string;name:string;spaceId:string;spaceName:string;folderId:string|null;folderName:string|null;statuses:Status[]|null;fields:Field[]|null;content:string|null;url?:string;errors?:string[];settings:Record<string,unknown>};
+export type Profile = {id:string;name:string;version:string;state:string;description:string;sourceListId:string;sourceListName:string;namingPattern:string|null;statuses:Status[];fields:Field[];descriptionRequired:boolean;views:string[];clickApps:string[];automationPackage:string};
+export type Snapshot = {schemaVersion:number;workspaceId:string;capturedAt:string;source:string;spaces:{id:string;name:string;settings:unknown;fields?:Field[]|null}[];folders:{id:string;name:string;spaceId:string;fields?:Field[]|null}[];lists:ListRecord[];workspaceFields?:Field[];coverage?:Record<string,unknown>};
+export type Check = {key:string;area:string;label:string;state:"pass"|"drift"|"unknown";actual:unknown;expected:unknown;delivery:"manual"|"future-api"|"inspect";reason:string};

@@ -1,0 +1,1178 @@
+[
+  {
+    "id": "website",
+    "name": "Website Project",
+    "version": "1.0.0",
+    "state": "draft",
+    "description": "Candidate baseline seeded from an existing List; review before adoption.",
+    "sourceListId": "901328976748",
+    "sourceListName": "MDC Web Template",
+    "namingPattern": "^.+\\s::\\s.+$",
+    "statuses": [
+      {
+        "status": "to do",
+        "color": "#000000",
+        "orderindex": 0,
+        "type": "open"
+      },
+      {
+        "status": "in progress",
+        "color": "#00cc99",
+        "orderindex": 1,
+        "type": "custom"
+      },
+      {
+        "status": "revisions",
+        "color": "#cc0066",
+        "orderindex": 2,
+        "type": "custom"
+      },
+      {
+        "status": "research/estimate",
+        "color": "#ee5e99",
+        "orderindex": 3,
+        "type": "custom"
+      },
+      {
+        "status": "ready for qa",
+        "color": "#66ff66",
+        "orderindex": 4,
+        "type": "custom"
+      },
+      {
+        "status": "qa passed",
+        "color": "#33cccc",
+        "orderindex": 5,
+        "type": "custom"
+      },
+      {
+        "status": "push to staging",
+        "color": "#ffcc00",
+        "orderindex": 6,
+        "type": "custom"
+      },
+      {
+        "status": "push to prod",
+        "color": "#cc00ff",
+        "orderindex": 7,
+        "type": "custom"
+      },
+      {
+        "status": "ready for internal review",
+        "color": "#6600cc",
+        "orderindex": 8,
+        "type": "custom"
+      },
+      {
+        "status": "ready for client",
+        "color": "#cc0000",
+        "orderindex": 9,
+        "type": "custom"
+      },
+      {
+        "status": "ready for billing",
+        "color": "#669966",
+        "orderindex": 10,
+        "type": "custom"
+      },
+      {
+        "status": "waiting on client",
+        "color": "#ff9900",
+        "orderindex": 11,
+        "type": "custom"
+      },
+      {
+        "status": "blocked",
+        "color": "#ff3300",
+        "orderindex": 12,
+        "type": "custom"
+      },
+      {
+        "status": "Closed",
+        "color": "#008844",
+        "orderindex": 13,
+        "type": "closed"
+      }
+    ],
+    "fields": [
+      {
+        "id": "42c8a822-90c4-4791-acf1-ea0fb2444e6c",
+        "name": "FIGMA FILE",
+        "type": "short_text",
+        "type_config": {},
+        "required": false
+      },
+      {
+        "id": "4509bb36-427e-4d30-a87f-c21d7c089ba8",
+        "name": "Project Sections",
+        "type": "drop_down",
+        "type_config": {
+          "sorting": "manual",
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "ccaed90f-9cd1-4647-bd3d-3d8620b423cb",
+              "name": "Closed",
+              "color": "#b5bcc2",
+              "orderindex": 0
+            },
+            {
+              "id": "bb6b8932-df12-4be3-b9a8-12745e91ad9e",
+              "name": "Hosting and Maintenance",
+              "color": "#667684",
+              "orderindex": 1
+            },
+            {
+              "id": "34775428-5a0c-491e-bb43-32655bb352cf",
+              "name": "Retainer",
+              "color": "#667684",
+              "orderindex": 2
+            },
+            {
+              "id": "24733e91-3d6f-42c7-b176-650c79427518",
+              "name": "Pre-Kickoff",
+              "color": "#667684",
+              "orderindex": 3
+            },
+            {
+              "id": "ffd604af-4c49-4347-bb07-0199299ba818",
+              "name": "Management & Oversight",
+              "color": "#9b59b6",
+              "orderindex": 4
+            },
+            {
+              "id": "6ed0d269-d5fd-4f1e-a5a2-2a355fef8d94",
+              "name": "Discovery",
+              "color": "#667684",
+              "orderindex": 5
+            },
+            {
+              "id": "ec246a6e-c5a6-4ffe-8b44-78526f85b6fc",
+              "name": "Wireframes",
+              "color": "#ff7800",
+              "orderindex": 6
+            },
+            {
+              "id": "c65195ce-88e8-423f-a846-8c3f0d796077",
+              "name": "Content",
+              "color": "#ff7800",
+              "orderindex": 7
+            },
+            {
+              "id": "1d436022-70d5-4000-ac19-29f8cc2ac0e2",
+              "name": "Product Backlog",
+              "color": "#0091ff",
+              "orderindex": 8
+            },
+            {
+              "id": "ddbb1ead-c8a0-455f-9648-4dc62c0b899a",
+              "name": "Design",
+              "color": "#FF7FAB",
+              "orderindex": 9
+            },
+            {
+              "id": "96dadf21-ad25-45ec-8cf9-9c2528555de7",
+              "name": "Dev",
+              "color": "#0231E8",
+              "orderindex": 10
+            },
+            {
+              "id": "fa9817b2-737c-43d0-8ce9-34a211e4f002",
+              "name": "QA",
+              "color": "#7C4DFF",
+              "orderindex": 11
+            },
+            {
+              "id": "60f30802-ea21-42b5-9231-7c01a0efccb3",
+              "name": "UAT",
+              "color": "#800000",
+              "orderindex": 12
+            },
+            {
+              "id": "97f13543-58e3-4956-8480-e7ae99351917",
+              "name": "Pre-Launch",
+              "color": "#2ecd6f",
+              "orderindex": 13
+            },
+            {
+              "id": "244c72bb-b135-4258-b97e-0bf00e11dc0b",
+              "name": "Post-Launch",
+              "color": "#1bbc9c",
+              "orderindex": 14
+            },
+            {
+              "id": "20a8274d-c6dd-43a3-a600-d94df986702a",
+              "name": "Month to Month",
+              "color": "#f900ea",
+              "orderindex": 15
+            },
+            {
+              "id": "85b4cea1-4cd9-4012-8ebe-49c8dbfbaeb0",
+              "name": "Hosting (No Maintenance)  ",
+              "color": "#f9d900",
+              "orderindex": 16
+            },
+            {
+              "id": "ef8a48e5-1854-4f09-87d9-4020b573630e",
+              "name": "Digital",
+              "color": "#fff",
+              "orderindex": 17
+            },
+            {
+              "id": "51af15fa-c11c-4f54-aaa3-90118eec4006",
+              "name": "RELEASE",
+              "color": "#E4BB8B",
+              "orderindex": 18
+            },
+            {
+              "id": "5b24b899-7b07-4dcf-8ceb-b8d7632e83a8",
+              "name": "Home Account ",
+              "color": "#fff",
+              "orderindex": 19
+            },
+            {
+              "id": "902b0e5e-6f14-4569-b12c-97ca828fc0e5",
+              "name": "Sales",
+              "color": "#3db88b",
+              "orderindex": 20
+            }
+          ]
+        },
+        "required": false
+      },
+      {
+        "id": "c18c5575-48e6-4aeb-aafe-44d5df62625e",
+        "name": "Contract",
+        "type": "text",
+        "type_config": {},
+        "required": false
+      },
+      {
+        "id": "c3fa0d9b-146b-4372-876b-0d67bd08e45f",
+        "name": "Contract Hours",
+        "type": "number",
+        "type_config": {},
+        "required": false
+      },
+      {
+        "id": "e76bf44c-6bd6-48d8-92c3-803dd4ac4334",
+        "name": "Environment",
+        "type": "drop_down",
+        "type_config": {
+          "default": 0,
+          "placeholder": null,
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "4a9f27ff-8da8-41a6-b015-983282d2b999",
+              "name": "Development",
+              "color": "#81B1FF",
+              "orderindex": 0
+            },
+            {
+              "id": "baae34b8-37b4-4eb4-9dce-be6f47b202b4",
+              "name": "Staging",
+              "color": "#f9d900",
+              "orderindex": 1
+            },
+            {
+              "id": "725e4a8f-3398-48b4-a758-089699180e4d",
+              "name": "Production",
+              "color": "#1bbc9c",
+              "orderindex": 2
+            }
+          ]
+        },
+        "required": false
+      }
+    ],
+    "descriptionRequired": true,
+    "views": [
+      "list",
+      "board"
+    ],
+    "clickApps": [],
+    "automationPackage": "website-rules-v1"
+  },
+  {
+    "id": "retainer",
+    "name": "Retainer",
+    "version": "1.0.0",
+    "state": "draft",
+    "description": "Candidate baseline seeded from an existing List; review before adoption.",
+    "sourceListId": "901328988181",
+    "sourceListName": "Retainer",
+    "namingPattern": "^.+\\s::\\s.+$",
+    "statuses": [
+      {
+        "status": "to do",
+        "color": "#000000",
+        "orderindex": 0,
+        "type": "open"
+      },
+      {
+        "status": "in progress",
+        "color": "#00cc99",
+        "orderindex": 1,
+        "type": "custom"
+      },
+      {
+        "status": "revisions",
+        "color": "#cc0066",
+        "orderindex": 2,
+        "type": "custom"
+      },
+      {
+        "status": "research/estimate",
+        "color": "#ee5e99",
+        "orderindex": 3,
+        "type": "custom"
+      },
+      {
+        "status": "ready for staging qa",
+        "color": "#66ff66",
+        "orderindex": 4,
+        "type": "custom"
+      },
+      {
+        "status": "ready for prod qa",
+        "color": "#66ff66",
+        "orderindex": 5,
+        "type": "custom"
+      },
+      {
+        "status": "qa passed",
+        "color": "#33cccc",
+        "orderindex": 6,
+        "type": "custom"
+      },
+      {
+        "status": "push to staging",
+        "color": "#ffcc00",
+        "orderindex": 7,
+        "type": "custom"
+      },
+      {
+        "status": "push to prod",
+        "color": "#cc00ff",
+        "orderindex": 8,
+        "type": "custom"
+      },
+      {
+        "status": "ready for internal review",
+        "color": "#6600cc",
+        "orderindex": 9,
+        "type": "custom"
+      },
+      {
+        "status": "ready for client",
+        "color": "#cc0000",
+        "orderindex": 10,
+        "type": "custom"
+      },
+      {
+        "status": "ready for billing",
+        "color": "#669966",
+        "orderindex": 11,
+        "type": "custom"
+      },
+      {
+        "status": "waiting on client",
+        "color": "#ff9900",
+        "orderindex": 12,
+        "type": "custom"
+      },
+      {
+        "status": "blocked",
+        "color": "#ff3300",
+        "orderindex": 13,
+        "type": "custom"
+      },
+      {
+        "status": "Closed",
+        "color": "#008844",
+        "orderindex": 14,
+        "type": "closed"
+      }
+    ],
+    "fields": [
+      {
+        "id": "4509bb36-427e-4d30-a87f-c21d7c089ba8",
+        "name": "Project Sections",
+        "type": "drop_down",
+        "type_config": {
+          "sorting": "manual",
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "ccaed90f-9cd1-4647-bd3d-3d8620b423cb",
+              "name": "Closed",
+              "color": "#b5bcc2",
+              "orderindex": 0
+            },
+            {
+              "id": "bb6b8932-df12-4be3-b9a8-12745e91ad9e",
+              "name": "Hosting and Maintenance",
+              "color": "#667684",
+              "orderindex": 1
+            },
+            {
+              "id": "34775428-5a0c-491e-bb43-32655bb352cf",
+              "name": "Retainer",
+              "color": "#667684",
+              "orderindex": 2
+            },
+            {
+              "id": "24733e91-3d6f-42c7-b176-650c79427518",
+              "name": "Pre-Kickoff",
+              "color": "#667684",
+              "orderindex": 3
+            },
+            {
+              "id": "ffd604af-4c49-4347-bb07-0199299ba818",
+              "name": "Management & Oversight",
+              "color": "#9b59b6",
+              "orderindex": 4
+            },
+            {
+              "id": "6ed0d269-d5fd-4f1e-a5a2-2a355fef8d94",
+              "name": "Discovery",
+              "color": "#667684",
+              "orderindex": 5
+            },
+            {
+              "id": "ec246a6e-c5a6-4ffe-8b44-78526f85b6fc",
+              "name": "Wireframes",
+              "color": "#ff7800",
+              "orderindex": 6
+            },
+            {
+              "id": "c65195ce-88e8-423f-a846-8c3f0d796077",
+              "name": "Content",
+              "color": "#ff7800",
+              "orderindex": 7
+            },
+            {
+              "id": "1d436022-70d5-4000-ac19-29f8cc2ac0e2",
+              "name": "Product Backlog",
+              "color": "#0091ff",
+              "orderindex": 8
+            },
+            {
+              "id": "ddbb1ead-c8a0-455f-9648-4dc62c0b899a",
+              "name": "Design",
+              "color": "#FF7FAB",
+              "orderindex": 9
+            },
+            {
+              "id": "96dadf21-ad25-45ec-8cf9-9c2528555de7",
+              "name": "Dev",
+              "color": "#0231E8",
+              "orderindex": 10
+            },
+            {
+              "id": "fa9817b2-737c-43d0-8ce9-34a211e4f002",
+              "name": "QA",
+              "color": "#7C4DFF",
+              "orderindex": 11
+            },
+            {
+              "id": "60f30802-ea21-42b5-9231-7c01a0efccb3",
+              "name": "UAT",
+              "color": "#800000",
+              "orderindex": 12
+            },
+            {
+              "id": "97f13543-58e3-4956-8480-e7ae99351917",
+              "name": "Pre-Launch",
+              "color": "#2ecd6f",
+              "orderindex": 13
+            },
+            {
+              "id": "244c72bb-b135-4258-b97e-0bf00e11dc0b",
+              "name": "Post-Launch",
+              "color": "#1bbc9c",
+              "orderindex": 14
+            },
+            {
+              "id": "20a8274d-c6dd-43a3-a600-d94df986702a",
+              "name": "Month to Month",
+              "color": "#f900ea",
+              "orderindex": 15
+            },
+            {
+              "id": "85b4cea1-4cd9-4012-8ebe-49c8dbfbaeb0",
+              "name": "Hosting (No Maintenance)  ",
+              "color": "#f9d900",
+              "orderindex": 16
+            },
+            {
+              "id": "ef8a48e5-1854-4f09-87d9-4020b573630e",
+              "name": "Digital",
+              "color": "#fff",
+              "orderindex": 17
+            },
+            {
+              "id": "51af15fa-c11c-4f54-aaa3-90118eec4006",
+              "name": "RELEASE",
+              "color": "#E4BB8B",
+              "orderindex": 18
+            },
+            {
+              "id": "5b24b899-7b07-4dcf-8ceb-b8d7632e83a8",
+              "name": "Home Account ",
+              "color": "#fff",
+              "orderindex": 19
+            },
+            {
+              "id": "902b0e5e-6f14-4569-b12c-97ca828fc0e5",
+              "name": "Sales",
+              "color": "#3db88b",
+              "orderindex": 20
+            }
+          ]
+        },
+        "required": false
+      },
+      {
+        "id": "54d619fd-3c33-4901-83bd-bce86d328e39",
+        "name": "Services",
+        "type": "drop_down",
+        "type_config": {
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "2f2e2dd6-6549-452e-a27b-4530b3bc0624",
+              "name": "Management & Oversight",
+              "color": "#FF7FAB",
+              "orderindex": 0
+            },
+            {
+              "id": "98cf45c7-e76f-4b5d-8a5a-67632797c6d8",
+              "name": "PPC",
+              "color": "#f9d900",
+              "orderindex": 1
+            },
+            {
+              "id": "af7fc340-f243-46c1-bf33-a8df0721e0c8",
+              "name": "SEO",
+              "color": "#AF7E2E",
+              "orderindex": 2
+            },
+            {
+              "id": "acd19d10-8569-4839-ac7b-ee61fc295bb0",
+              "name": "Content",
+              "color": "#ff7800",
+              "orderindex": 3
+            },
+            {
+              "id": "4c1078b3-28a0-4958-804d-0e81c022e1f6",
+              "name": "Social",
+              "color": "#E65100",
+              "orderindex": 4
+            },
+            {
+              "id": "4db06229-ece7-406f-8e08-ce96e4ac828b",
+              "name": "Website Edits",
+              "color": "#3397dd",
+              "orderindex": 5
+            },
+            {
+              "id": "e09e044b-ef1d-4198-bee7-babc459c8cdb",
+              "name": "Creative",
+              "color": "#7C4DFF",
+              "orderindex": 6
+            },
+            {
+              "id": "e452faea-7c7f-49c4-a276-c93498444f66",
+              "name": "Misc.",
+              "color": "#667684",
+              "orderindex": 7
+            }
+          ]
+        },
+        "required": false
+      },
+      {
+        "id": "c141dd46-9b4c-43bf-91be-1fcdc2636898",
+        "name": "Contract Hours Per Month",
+        "type": "number",
+        "type_config": {},
+        "required": false
+      },
+      {
+        "id": "e76bf44c-6bd6-48d8-92c3-803dd4ac4334",
+        "name": "Environment",
+        "type": "drop_down",
+        "type_config": {
+          "default": 0,
+          "placeholder": null,
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "4a9f27ff-8da8-41a6-b015-983282d2b999",
+              "name": "Development",
+              "color": "#81B1FF",
+              "orderindex": 0
+            },
+            {
+              "id": "baae34b8-37b4-4eb4-9dce-be6f47b202b4",
+              "name": "Staging",
+              "color": "#f9d900",
+              "orderindex": 1
+            },
+            {
+              "id": "725e4a8f-3398-48b4-a758-089699180e4d",
+              "name": "Production",
+              "color": "#1bbc9c",
+              "orderindex": 2
+            }
+          ]
+        },
+        "required": false
+      }
+    ],
+    "descriptionRequired": true,
+    "views": [
+      "list",
+      "board"
+    ],
+    "clickApps": [],
+    "automationPackage": "retainer-rules-v1"
+  },
+  {
+    "id": "digital",
+    "name": "Digital/Content",
+    "version": "1.0.0",
+    "state": "draft",
+    "description": "Candidate baseline seeded from an existing List; review before adoption.",
+    "sourceListId": "901306687207",
+    "sourceListName": "Digital/HTML",
+    "namingPattern": "^.+\\s::\\s.+$",
+    "statuses": [
+      {
+        "status": "upcoming",
+        "color": "#656f7d",
+        "orderindex": 0,
+        "type": "open"
+      },
+      {
+        "status": "assigned",
+        "color": "#4466ff",
+        "orderindex": 1,
+        "type": "custom"
+      },
+      {
+        "status": "in progress",
+        "color": "#e16b16",
+        "orderindex": 2,
+        "type": "custom"
+      },
+      {
+        "status": "internal ready",
+        "color": "#b660e0",
+        "orderindex": 3,
+        "type": "custom"
+      },
+      {
+        "status": "client ready",
+        "color": "#b660e0",
+        "orderindex": 4,
+        "type": "custom"
+      },
+      {
+        "status": "with client",
+        "color": "#f8ae00",
+        "orderindex": 5,
+        "type": "custom"
+      },
+      {
+        "status": "revise",
+        "color": "#d33d44",
+        "orderindex": 6,
+        "type": "custom"
+      },
+      {
+        "status": "blocked",
+        "color": "#d33d44",
+        "orderindex": 7,
+        "type": "custom"
+      },
+      {
+        "status": "in prep",
+        "color": "#64c6a2",
+        "orderindex": 8,
+        "type": "custom"
+      },
+      {
+        "status": "ready for print",
+        "color": "#64c6a2",
+        "orderindex": 9,
+        "type": "custom"
+      },
+      {
+        "status": "Closed",
+        "color": "#008844",
+        "orderindex": 10,
+        "type": "closed"
+      }
+    ],
+    "fields": [
+      {
+        "id": "4509bb36-427e-4d30-a87f-c21d7c089ba8",
+        "name": "Project Sections",
+        "type": "drop_down",
+        "type_config": {
+          "sorting": "manual",
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "ccaed90f-9cd1-4647-bd3d-3d8620b423cb",
+              "name": "Closed",
+              "color": "#b5bcc2",
+              "orderindex": 0
+            },
+            {
+              "id": "bb6b8932-df12-4be3-b9a8-12745e91ad9e",
+              "name": "Hosting and Maintenance",
+              "color": "#667684",
+              "orderindex": 1
+            },
+            {
+              "id": "34775428-5a0c-491e-bb43-32655bb352cf",
+              "name": "Retainer",
+              "color": "#667684",
+              "orderindex": 2
+            },
+            {
+              "id": "24733e91-3d6f-42c7-b176-650c79427518",
+              "name": "Pre-Kickoff",
+              "color": "#667684",
+              "orderindex": 3
+            },
+            {
+              "id": "ffd604af-4c49-4347-bb07-0199299ba818",
+              "name": "Management & Oversight",
+              "color": "#9b59b6",
+              "orderindex": 4
+            },
+            {
+              "id": "6ed0d269-d5fd-4f1e-a5a2-2a355fef8d94",
+              "name": "Discovery",
+              "color": "#667684",
+              "orderindex": 5
+            },
+            {
+              "id": "ec246a6e-c5a6-4ffe-8b44-78526f85b6fc",
+              "name": "Wireframes",
+              "color": "#ff7800",
+              "orderindex": 6
+            },
+            {
+              "id": "c65195ce-88e8-423f-a846-8c3f0d796077",
+              "name": "Content",
+              "color": "#ff7800",
+              "orderindex": 7
+            },
+            {
+              "id": "1d436022-70d5-4000-ac19-29f8cc2ac0e2",
+              "name": "Product Backlog",
+              "color": "#0091ff",
+              "orderindex": 8
+            },
+            {
+              "id": "ddbb1ead-c8a0-455f-9648-4dc62c0b899a",
+              "name": "Design",
+              "color": "#FF7FAB",
+              "orderindex": 9
+            },
+            {
+              "id": "96dadf21-ad25-45ec-8cf9-9c2528555de7",
+              "name": "Dev",
+              "color": "#0231E8",
+              "orderindex": 10
+            },
+            {
+              "id": "fa9817b2-737c-43d0-8ce9-34a211e4f002",
+              "name": "QA",
+              "color": "#7C4DFF",
+              "orderindex": 11
+            },
+            {
+              "id": "60f30802-ea21-42b5-9231-7c01a0efccb3",
+              "name": "UAT",
+              "color": "#800000",
+              "orderindex": 12
+            },
+            {
+              "id": "97f13543-58e3-4956-8480-e7ae99351917",
+              "name": "Pre-Launch",
+              "color": "#2ecd6f",
+              "orderindex": 13
+            },
+            {
+              "id": "244c72bb-b135-4258-b97e-0bf00e11dc0b",
+              "name": "Post-Launch",
+              "color": "#1bbc9c",
+              "orderindex": 14
+            },
+            {
+              "id": "20a8274d-c6dd-43a3-a600-d94df986702a",
+              "name": "Month to Month",
+              "color": "#f900ea",
+              "orderindex": 15
+            },
+            {
+              "id": "85b4cea1-4cd9-4012-8ebe-49c8dbfbaeb0",
+              "name": "Hosting (No Maintenance)  ",
+              "color": "#f9d900",
+              "orderindex": 16
+            },
+            {
+              "id": "ef8a48e5-1854-4f09-87d9-4020b573630e",
+              "name": "Digital",
+              "color": "#fff",
+              "orderindex": 17
+            },
+            {
+              "id": "51af15fa-c11c-4f54-aaa3-90118eec4006",
+              "name": "RELEASE",
+              "color": "#E4BB8B",
+              "orderindex": 18
+            },
+            {
+              "id": "5b24b899-7b07-4dcf-8ceb-b8d7632e83a8",
+              "name": "Home Account ",
+              "color": "#fff",
+              "orderindex": 19
+            },
+            {
+              "id": "902b0e5e-6f14-4569-b12c-97ca828fc0e5",
+              "name": "Sales",
+              "color": "#3db88b",
+              "orderindex": 20
+            }
+          ]
+        },
+        "required": false
+      },
+      {
+        "id": "cb1acc69-da98-46e8-ae44-f4c69efc7860",
+        "name": "Revision",
+        "type": "drop_down",
+        "type_config": {
+          "default": 0,
+          "placeholder": null,
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "c3d0bbd1-873f-4902-916e-9650858db724",
+              "name": "1",
+              "color": "#2ecd6f",
+              "orderindex": 0
+            },
+            {
+              "id": "235fbd14-0455-45b2-9763-eaad48f6e1bb",
+              "name": "2",
+              "color": "#f9d900",
+              "orderindex": 1
+            },
+            {
+              "id": "0ce20b6e-44bd-4fe8-96c0-3256c109ba04",
+              "name": "3",
+              "color": "#ff7800",
+              "orderindex": 2
+            },
+            {
+              "id": "5bc93e23-b062-4b98-81dc-fd760529f62b",
+              "name": "4",
+              "color": "#e50000",
+              "orderindex": 3
+            },
+            {
+              "id": "e6616ee6-3b9f-48b0-83bb-4956ddcd5f98",
+              "name": "5",
+              "color": "#e50000",
+              "orderindex": 4
+            }
+          ]
+        },
+        "required": false
+      }
+    ],
+    "descriptionRequired": true,
+    "views": [
+      "list",
+      "board"
+    ],
+    "clickApps": [],
+    "automationPackage": "digital-rules-v1"
+  },
+  {
+    "id": "internal",
+    "name": "Internal",
+    "version": "1.0.0",
+    "state": "draft",
+    "description": "Candidate baseline seeded from an existing List; review before adoption.",
+    "sourceListId": "901312645569",
+    "sourceListName": "Nicole :: Internal Tasks",
+    "namingPattern": null,
+    "statuses": [
+      {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      {
+        "status": "in progress",
+        "color": "#5f55ee",
+        "orderindex": 1,
+        "type": "custom"
+      },
+      {
+        "status": "complete",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    ],
+    "fields": [
+      {
+        "id": "cfb96686-810a-46ca-ae41-9a362d38e81a",
+        "name": "Objective for the Week",
+        "type": "text",
+        "type_config": {},
+        "required": false
+      }
+    ],
+    "descriptionRequired": true,
+    "views": [
+      "list",
+      "board"
+    ],
+    "clickApps": [],
+    "automationPackage": "internal-rules-v1"
+  },
+  {
+    "id": "time",
+    "name": "Time Tracking/Admin",
+    "version": "1.0.0",
+    "state": "draft",
+    "description": "Proposed simple workflow for administrative time; review before adoption.",
+    "sourceListId": "901310905559",
+    "sourceListName": "Administrative Time Tracking",
+    "namingPattern": null,
+    "statuses": [
+      {
+        "status": "to do",
+        "type": "open",
+        "color": "#87909e",
+        "orderindex": 0
+      },
+      {
+        "status": "in progress",
+        "type": "custom",
+        "color": "#265ee7",
+        "orderindex": 1
+      },
+      {
+        "status": "complete",
+        "type": "closed",
+        "color": "#008844",
+        "orderindex": 2
+      }
+    ],
+    "fields": [],
+    "descriptionRequired": true,
+    "views": [
+      "list",
+      "board"
+    ],
+    "clickApps": [
+      "time_tracking"
+    ],
+    "automationPackage": "time-rules-v1"
+  },
+  {
+    "id": "support",
+    "name": "Support/Tickets",
+    "version": "1.0.0",
+    "state": "draft",
+    "description": "Candidate baseline seeded from an existing List; review before adoption.",
+    "sourceListId": "901300499191",
+    "sourceListName": "Tickets",
+    "namingPattern": null,
+    "statuses": [
+      {
+        "status": "to do",
+        "color": "#000000",
+        "orderindex": 0,
+        "type": "open"
+      },
+      {
+        "status": "in progress",
+        "color": "#00cc99",
+        "orderindex": 1,
+        "type": "custom"
+      },
+      {
+        "status": "revisions",
+        "color": "#cc0066",
+        "orderindex": 2,
+        "type": "custom"
+      },
+      {
+        "status": "research/estimate",
+        "color": "#ee5e99",
+        "orderindex": 3,
+        "type": "custom"
+      },
+      {
+        "status": "ready for qa",
+        "color": "#66ff66",
+        "orderindex": 4,
+        "type": "custom"
+      },
+      {
+        "status": "qa passed",
+        "color": "#33cccc",
+        "orderindex": 5,
+        "type": "custom"
+      },
+      {
+        "status": "push to staging",
+        "color": "#ffcc00",
+        "orderindex": 6,
+        "type": "custom"
+      },
+      {
+        "status": "push to prod",
+        "color": "#cc00ff",
+        "orderindex": 7,
+        "type": "custom"
+      },
+      {
+        "status": "ready for internal review",
+        "color": "#6600cc",
+        "orderindex": 8,
+        "type": "custom"
+      },
+      {
+        "status": "ready for client",
+        "color": "#cc0000",
+        "orderindex": 9,
+        "type": "custom"
+      },
+      {
+        "status": "ready for billing",
+        "color": "#669966",
+        "orderindex": 10,
+        "type": "custom"
+      },
+      {
+        "status": "waiting on client",
+        "color": "#ff9900",
+        "orderindex": 11,
+        "type": "custom"
+      },
+      {
+        "status": "blocked",
+        "color": "#ff3300",
+        "orderindex": 12,
+        "type": "custom"
+      },
+      {
+        "status": "Open",
+        "color": "#f8ae00",
+        "orderindex": 13,
+        "type": "custom"
+      },
+      {
+        "status": "Closed",
+        "color": "#008844",
+        "orderindex": 14,
+        "type": "closed"
+      }
+    ],
+    "fields": [
+      {
+        "id": "223e2db4-d927-4662-a374-bbaf790716e4",
+        "name": "Ticket Data",
+        "type": "short_text",
+        "type_config": {},
+        "required": false
+      },
+      {
+        "id": "426cf2ed-b38c-4616-a077-b2074a0d85e8",
+        "name": "Company Name",
+        "type": "short_text",
+        "type_config": {},
+        "required": false
+      },
+      {
+        "id": "4a59e4dc-aeee-43c3-8739-e4ab32ec8f06",
+        "name": "Category",
+        "type": "drop_down",
+        "type_config": {
+          "default": 0,
+          "placeholder": null,
+          "new_drop_down": true,
+          "options": [
+            {
+              "id": "393dfb10-11e3-4af9-ae52-ce14c5a01d1e",
+              "name": "Billing",
+              "color": "#2ecd6f",
+              "orderindex": 0
+            },
+            {
+              "id": "a81194d4-11a4-49f4-99ef-5addafee8b8a",
+              "name": "Sales",
+              "color": "#FF7FAB",
+              "orderindex": 1
+            },
+            {
+              "id": "511a5de6-2ff7-46b3-a4ff-27418fca4538",
+              "name": "Development",
+              "color": "#04A9F4",
+              "orderindex": 2
+            },
+            {
+              "id": "e6ae38b1-a5c4-4604-9695-be32f4baebec",
+              "name": "Design",
+              "color": "#9b59b6",
+              "orderindex": 3
+            },
+            {
+              "id": "00774d05-6855-4388-b421-d5956b05c4f0",
+              "name": "Digital",
+              "color": "#f9d900",
+              "orderindex": 4
+            },
+            {
+              "id": "722ec217-95d6-460f-817a-0cad4ebdcad9",
+              "name": "Other",
+              "color": "#667684",
+              "orderindex": 5
+            }
+          ]
+        },
+        "required": false
+      },
+      {
+        "id": "783b714f-f820-4139-8844-46df3af8d9b0",
+        "name": "Requestor email",
+        "type": "email",
+        "type_config": {},
+        "required": false
+      }
+    ],
+    "descriptionRequired": true,
+    "views": [
+      "list",
+      "board"
+    ],
+    "clickApps": [],
+    "automationPackage": "support-rules-v1"
+  }
+]

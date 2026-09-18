@@ -1,13 +1,22 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {audit,summarize,inferProfile,createPlan,assertPlanFresh,applyStandard} from "../lib/governance/engine.ts";
+import {audit,summarize,inferProfile,createPlan,assertPlanFresh,applyStandard,buildGovernanceReport} from "../lib/governance/engine.ts";
 import {verifySignature,evaluateRules} from "../lib/governance/rules.ts";
 import {createHmac} from "node:crypto";
 const snapshot=JSON.parse(readFileSync(new URL("../data/snapshot.json",import.meta.url)));
 const profiles=JSON.parse(readFileSync(new URL("../config/profiles.json",import.meta.url)));
 const profile=profiles[0];
 const list={...snapshot.lists.find(l=>l.id===profile.sourceListId),name:"Example :: Website",content:"Project description"};
+test("governance report packages review decisions without executable actions",()=>{
+ const report=buildGovernanceReport(snapshot,profiles,{[list.id]:{profileId:profile.id,status:"approved",owner:"Admin",reviewer:"Lead"}});
+ assert.equal(report.kind,"clickup-governance-review");
+ assert.equal(report.mode,"read-only");
+ assert.equal(report.summary.assigned,1);
+ assert.equal(report.summary.approved,1);
+ assert.equal(report.lists.find(item=>item.listId===list.id).assignment.owner,"Admin");
+ assert.ok(report.lists.find(item=>item.listId===list.id).findings.every(f=>f.state!=="pass"));
+});
 test("seed workflow and canonical fields match draft; unavailable data remains unknown",()=>{
  const checks=audit(list,profile);
  assert.equal(checks.filter(c=>c.state==="drift").length,0);

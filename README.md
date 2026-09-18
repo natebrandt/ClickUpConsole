@@ -1,6 +1,6 @@
 # ClickUp Admin Console — Phase 1
 
-Read-only audit of the connected ClickUp workspace, with draft standards and non-executable change plans. Built with React, TypeScript, Vinext/Vite, and the installed Shadcn components. Hosted deployment is owner-private through Sites.
+Read-only audit of the connected ClickUp workspace, with draft standards and non-executable change plans. Built with Next.js, React, TypeScript, and Shadcn components. Configured for Vercel with a private production access gate.
 
 ## Run locally
 
@@ -8,10 +8,10 @@ Requires Node 22.13+ and npm.
 
 ```sh
 npm ci
-npm run dev -- --host 127.0.0.1
+npm run dev
 ```
 
-Open the local address printed by the development server. The bundled snapshot works without a ClickUp token. Keep the local server bound to loopback: it has no standalone authentication. Hosted privacy is enforced by Sites, not by a custom login screen in this app.
+Open the local address printed by the development server. The bundled snapshot works without a ClickUp token. Development is bound to loopback and permits access when no admin credentials are configured. Production and Vercel always require the credentials below.
 
 ```sh
 npm test
@@ -19,7 +19,21 @@ npx tsc --noEmit
 npm run build
 ```
 
-The build produces a Cloudflare-compatible Worker in dist/server and browser assets in dist/client. Sites packaging/deployment uses .openai/hosting.json; do not change the owner-only audience. Deploying elsewhere requires an authenticated access layer in front of both HTML and all data/asset routes.
+The default build is native Next.js and produces .next/ for Vercel. The prior Sites deployment remains separate; .openai/hosting.json and legacy support files are retained as history and are not used by Vercel.
+
+## Deploy to Vercel
+
+1. Import the private GitHub repository using [Vercel New Project](https://vercel.com/new).
+2. Select the Next.js preset, repository root, and Node.js 22.x. vercel.json sets npm ci and npm run build. Leave the output directory at its framework default.
+3. Add ADMIN_USERNAME and ADMIN_PASSWORD as sensitive environment variables for **both Preview and Production**, using a unique username (without a colon) and a strong unique password.
+4. Deploy. The browser prompts for these credentials before serving the console. Missing configuration returns 503; missing/wrong credentials returns 401. Never prefix the values with NEXT_PUBLIC_ or commit a real .env file.
+5. Importing the repository lets Vercel deploy subsequent pushes according to the project's Git settings.
+
+The snapshot is rendered on demand and is not a public static export. Both proxy.ts and the server page check authorization, and responses are marked private/no-store. Public CSS, JavaScript and the favicon contain no snapshot. Use HTTPS. This shared password is suitable for this initial owner console; named users, SSO, revocable sessions and rate limiting remain future work. Browser Basic authentication has no app logout button.
+
+No ClickUp API token is needed on Vercel for the captured snapshot. The optional refresh script remains local-only. A private GitHub repository does not itself protect a deployed site; the access gate does.
+
+[Next.js on Vercel](https://vercel.com/docs/frameworks/full-stack/nextjs) · [Next.js Proxy](https://nextjs.org/docs/app/api-reference/file-conventions/proxy)
 
 ## What was collected
 

@@ -1,19 +1,22 @@
 {
-  "name": "site-creator-vinext-starter",
+  "name": "clickup-admin-console",
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=22.13.0"
+    "node": "22.x"
   },
   "scripts": {
     "install:ci": "node scripts/install-ci.mjs",
-    "dev": "node scripts/run-framework.mjs dev",
-    "build": "node scripts/run-framework.mjs build",
-    "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
-    "test": "node --experimental-strip-types --test tests/governance.test.mjs",
-    "sync:clickup": "node scripts/sync-clickup.mjs"
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "sync:clickup": "node scripts/sync-clickup.mjs",
+    "typecheck": "tsc --noEmit",
+    "dev:sites": "node scripts/run-framework.mjs dev",
+    "build:sites": "node scripts/run-framework.mjs build"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

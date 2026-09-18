@@ -1,6 +1,6 @@
 "use client";
 import {useState,useMemo,useEffect} from "react";
-import {ShieldCheck,LayoutDashboard,Layers,SlidersHorizontal,GitCompareArrows,Workflow,Search,Download,ArrowUpRight,LockKeyhole,FolderTree,ChevronRight,CheckCircle2,TriangleAlert, CircleHelp} from "lucide-react";
+import {ShieldCheck,LayoutDashboard,Layers,SlidersHorizontal,GitCompareArrows,Workflow,Search,Download,ArrowUpRight,LockKeyhole,FolderTree,ChevronRight,CheckCircle2,TriangleAlert, CircleHelp,BarChart3,ListChecks} from "lucide-react";
 import {SidebarProvider,Sidebar,SidebarHeader,SidebarContent,SidebarFooter,SidebarMenu,SidebarMenuItem,SidebarMenuButton,SidebarGroup,SidebarGroupLabel,SidebarTrigger,SidebarInset} from "@/components/ui/sidebar";
 import {Table,TableHeader,TableBody,TableHead,TableRow,TableCell} from "@/components/ui/table";
 import {Select,SelectTrigger,SelectValue,SelectContent,SelectItem} from "@/components/ui/select";
@@ -27,6 +27,18 @@ export default function Console({snapshot,profiles}:{snapshot:Snapshot;profiles:
  const fields=useMemo(()=>{const m=new Map<string,{field:NonNullable<ListRecord["fields"]>[number];lists:string[]}>();for(const l of snapshot.lists)for(const f of l.fields??[]){const old=m.get(f.id);if(old)old.lists.push(l.id);else m.set(f.id,{field:f,lists:[l.id]});}return [...m.values()].sort((a,b)=>a.field.name.localeCompare(b.field.name));},[snapshot]);
  const duplicateNames=new Set(fields.filter(f=>fields.some(g=>g.field.id!==f.field.id&&normalize(g.field.name)===normalize(f.field.name))).map(f=>normalize(f.field.name)));
  const workflows=new Set(snapshot.lists.map(l=>JSON.stringify(l.statuses?.map(s=>[normalize(s.status),s.type])))).size;
+ const overview=useMemo(()=>{
+  const areaCounts=new Map<string,number>();
+  const statusCounts=new Map<string,number>();
+  const fieldCounts=new Map<string,number>();
+  for(const row of rows)for(const check of row.checks)if(check.state==="drift")areaCounts.set(check.area,(areaCounts.get(check.area)??0)+1);
+  for(const list of snapshot.lists){
+   for(const status of list.statuses??[]){const key=normalize(status.status);statusCounts.set(key,(statusCounts.get(key)??0)+1);}
+   for(const field of list.fields??[]){const key=normalize(field.name);fieldCounts.set(key,(fieldCounts.get(key)??0)+1);}
+  }
+  const top=(counts:Map<string,number>)=>[...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);
+  return {attention:rows.filter(row=>!row.profile||row.summary.drift>0||row.summary.unknown>0),unassigned:rows.filter(row=>!row.profile).length,areas:top(areaCounts),statuses:top(statusCounts),fields:top(fieldCounts)};
+ },[rows,snapshot]);
  useEffect(()=>setPage(0),[space,standard,health,query]);
  useEffect(()=>{
   const context=(document as unknown as {modelContext?:{registerTool:(tool:unknown,options:unknown)=>Promise<void>|void}}).modelContext;
@@ -48,6 +60,11 @@ export default function Console({snapshot,profiles}:{snapshot:Snapshot;profiles:
  <main className="console-main"><div className="topline title-row"><div><p className="kicker">PHASE 01 / {view==="audit"?"WORKSPACE INTELLIGENCE":"GOVERNANCE FOUNDATION"}</p><h1>{nav.find(n=>n[0]===view)?.[1]}</h1><p className="subtle">{view==="audit"?"A clear view of configuration across your ClickUp workspace.":view==="standards"?"Six versioned candidates. Your workspace is the starting point.":view==="fields"?"Canonical field identities, options, and where they are accessible.":view==="plans"?"Review the exact scope before a future change is possible.":"Verified capabilities and the path to safe automation."}</p></div><Button variant="outline" onClick={()=>download(snapshot,"clickup-workspace-snapshot.json")}><Download size={15}/> Export snapshot</Button></div>
  {view==="audit"&&<>
  <div className="metrics">{metrics.map(([n,t,h],i)=><div className={"metric metric-"+i} key={t}><span>{t}</span><strong>{n}</strong><small>{h}</small>{i===0&&<Progress value={total.score??0} className="mt-3 h-1.5"/>}</div>)}</div>
+ <section className="brief-grid" aria-label="Standardization brief">
+  <div className="panel brief-panel brief-focus"><div className="brief-heading"><span className="brief-icon"><BarChart3 size={18}/></span><div><p className="kicker">Decision brief</p><h2>Where to focus first</h2></div></div><strong className="brief-number">{overview.attention.length}</strong><p className="subtle">Lists need classification, review, or verification. <button className="text-action" onClick={()=>setHealth("drift")}>Open differences <ArrowUpRight size={13}/></button></p><div className="brief-split"><span><strong>{overview.unassigned}</strong> unassigned</span><span><strong>{rows.filter(row=>row.profile&&row.summary.drift>0).length}</strong> with drift</span></div></div>
+    <div className="panel brief-panel"><div className="brief-heading"><span className="brief-icon amber"><ListChecks size={18}/></span><div><p className="kicker">Dominant findings</p><h2>What varies most</h2></div></div>{overview.areas.length?<div className="rank-list">{overview.areas.map(([area,count])=><button className="rank-row" key={area} onClick={()=>{setHealth("drift");setQuery("");}}><span>{area}</span><strong>{count}</strong><span className="rank-bar"><i style={{width:`${Math.round(100*count/(overview.areas[0]?.[1]??1))}%`}}/></span></button>)}</div>:<p className="subtle">No observed differences in the current inventory.</p>}</div>
+  <div className="panel brief-panel"><div className="brief-heading"><span className="brief-icon green"><Layers size={18}/></span><div><p className="kicker">Workspace patterns</p><h2>Most repeated configuration</h2></div></div><div className="pattern-block"><span className="subtle">Statuses</span>{overview.statuses.slice(0,3).map(([name,count])=><div className="pattern-row" key={name}><strong>{name}</strong><span>{count} Lists</span></div>)}</div><div className="pattern-block"><span className="subtle">Fields</span>{overview.fields.slice(0,3).map(([name,count])=><div className="pattern-row" key={name}><strong>{name}</strong><span>{count} Lists</span></div>)}</div></div>
+ </section>
  <div className="insight-strip"><ShieldCheck size={20}/><div><strong>A baseline to review, not approved policy</strong><p>Assignments are naming-based suggestions. Unknown settings never count as failures. {total.coverage}% of checks in this view are verifiable.</p></div><span className="tag">{workflows} status workflows</span></div>
  <section className="panel inventory"><div className="topline"><h2>List inventory <span className="count">{filtered.length}</span></h2><span className="subtle">{snapshot.spaces.length} Spaces / {snapshot.folders.length} Folders</span></div>
  <div className="filters"><div className="search-box"><Search size={17}/><Input aria-label="Search Lists" placeholder="Search Lists or Folders…" value={query} onChange={e=>setQuery(e.target.value)}/></div><Picker label="Filter by Space" value={space} onChange={setSpace} options={[{id:"all",name:"All Spaces"},...snapshot.spaces]}/><Picker label="Filter by standard" value={standard} onChange={setStandard} options={[{id:"all",name:"All standards"},...profiles,{id:"unassigned",name:"Needs classification"}]}/><Picker label="Filter by health" value={health} onChange={setHealth} options={[{id:"all",name:"All results"},{id:"drift",name:"Has differences"},{id:"match",name:"Known checks match"},{id:"unknown",name:"Has unknowns"},{id:"unassigned",name:"Needs classification"}]}/></div>

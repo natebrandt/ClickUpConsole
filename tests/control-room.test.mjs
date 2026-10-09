@@ -6,7 +6,7 @@ import {Storage,ConflictError} from "../lib/control-room/storage.ts";
 import {initialSync,commandPath,applyResponse} from "../lib/control-room/sync-machine.ts";
 import {reviewInput} from "../lib/control-room/review-validation.ts";
 import {todayInNewYork,reviewDue} from "../lib/control-room/review-queue.ts";
-function adapter(pg){return {query:async(sql,args=[]) => (await pg.query(sql,args)).rows,transaction:async fn=>pg.transaction(tx=>fn(adapter(tx)))};}
+function adapter(pg){return {query:async(sql,args=[]) => (await pg.query(sql,args.map(v=>v!==null&&typeof v==="object"?JSON.stringify(v):v))).rows,transaction:async fn=>pg.transaction(tx=>fn(adapter(tx)))};}
 test("saved reviews survive new storage instances, preserve history, and reject stale writes",async()=>{
  const pg=new PGlite();try{
  for(const sql of schema)await pg.exec(sql);

@@ -29,7 +29,7 @@ export class Storage{
    if(before.version!==value.version)throw new ConflictError("This review changed in another session. Reload the latest review before saving.");
    const [updated]=await db.query("UPDATE cr_reviews SET status=$3,owner=$4,reason=$5,review_date=$6,version=version+1,updated_at=now(),updated_by=$7 WHERE workspace_id=$1 AND list_id=$2 RETURNING *",[workspace,value.listId,value.status,value.owner,value.reason,value.reviewDate,actor]);
    const after=review(updated);
-   await db.query("INSERT INTO cr_review_events(id,workspace_id,list_id,before_value,after_value,actor) VALUES($1,$2,$3,$4::jsonb,$5::jsonb,$6)",[randomUUID(),workspace,value.listId,before.version?JSON.stringify(before):null,JSON.stringify(after),actor]);
+   await db.query("INSERT INTO cr_review_events(id,workspace_id,list_id,before_value,after_value,actor) VALUES($1,$2,$3,$4::jsonb,$5::jsonb,$6)",[randomUUID(),workspace,value.listId,before.version?before:null,after,actor]);
    return after;
   });
  }
@@ -37,7 +37,7 @@ export class Storage{
  async createJob(workspace:string,state:SyncState){
   return this.db.transaction(async db=>{
    const id=randomUUID();
-   const rows=await db.query("INSERT INTO cr_jobs(id,workspace_id,status,state) VALUES($1,$2,'queued',$3::jsonb) ON CONFLICT DO NOTHING RETURNING id",[id,workspace,JSON.stringify(state)]);
+   const rows=await db.query("INSERT INTO cr_jobs(id,workspace_id,status,state) VALUES($1,$2,'queued',$3::jsonb) ON CONFLICT DO NOTHING RETURNING id",[id,workspace,state]);
    if(rows.length)return {id,created:true};
    const [existing]=await db.query("SELECT id FROM cr_jobs WHERE workspace_id=$1 AND status IN ('queued','running')",[workspace]);
    if(!existing)throw new ConflictError("Sync state changed. Please try again.");
@@ -57,9 +57,9 @@ export class Storage{
    const [r]=await db.query("SELECT workspace_id FROM cr_jobs WHERE id=$1 AND lease_token=$2 AND status='running' FOR UPDATE",[id,lease]);
    if(!r)return false;
    if(state.complete){
-    await db.query("INSERT INTO cr_snapshots(id,workspace_id,snapshot,activity) VALUES($1,$2,$3::jsonb,$4::jsonb) ON CONFLICT DO NOTHING",[id,r.workspace_id,JSON.stringify(state.snapshot),JSON.stringify(state.activity)]);
+    await db.query("INSERT INTO cr_snapshots(id,workspace_id,snapshot,activity) VALUES($1,$2,$3::jsonb,$4::jsonb) ON CONFLICT DO NOTHING",[id,r.workspace_id,state.snapshot,state.activity]);
    }
-   await db.query("UPDATE cr_jobs SET state=$3::jsonb,progress=$4,status=$5,lease_token=NULL,lease_until=NULL,updated_at=now(),finished_at=CASE WHEN $5='completed' THEN now() ELSE NULL END WHERE id=$1 AND lease_token=$2",[id,lease,JSON.stringify(state.complete?{complete:true}:state),state.progress,state.complete?"completed":"running"]);
+   await db.query("UPDATE cr_jobs SET state=$3::jsonb,progress=$4,status=$5,lease_token=NULL,lease_until=NULL,updated_at=now(),finished_at=CASE WHEN $5='completed' THEN now() ELSE NULL END WHERE id=$1 AND lease_token=$2",[id,lease,state.complete?{complete:true}:state,state.progress,state.complete?"completed":"running"]);
    return true;
   });
  }

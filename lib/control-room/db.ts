@@ -10,7 +10,7 @@ export function storage(){
   const sql=postgres(process.env.DATABASE_URL||process.env.POSTGRES_URL!,{max:3,idle_timeout:20,connect_timeout:10,prepare:false});
   function connection(client:typeof sql):Connection{
    return {
-    query:async <T extends Record<string,unknown>>(text:string,params:unknown[]=[])=>Array.from(await client.unsafe(text,params as never[])) as T[],
+    query:async <T extends Record<string,unknown>>(text:string,params:unknown[]=[])=>Array.from(await client.unsafe(text,params.map(value=>value!==null&&typeof value==="object"?client.json(value as never):value) as never[])) as T[],
     transaction:async <T>(fn:(db:Connection)=>Promise<T>)=>await client.begin(tx=>fn(connection(tx as unknown as typeof sql))) as T
    };
   }

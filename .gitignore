@@ -49,3 +49,8 @@ next-env.d.ts
 !.env.example
 
 .vercel/
+/.swc
+
+# Generated durable workflow bundles and local runtime state
+/app/.well-known/workflow/
+/.workflow-data/

@@ -125,10 +125,28 @@ The activity scan paginates all accessible workspace tasks, including closed tas
 
 Run `npm run sync:activity` with a local CLICKUP_API_TOKEN to refresh data/activity.json, then rebuild and deploy. A failed scan retains the prior report. To include newly created Lists, refresh the hierarchy first with sync:clickup. Activity metadata is served behind the existing production authentication gate.
 
-### Dashboard refresh and sorting
+### Persistent control room
 
-The **Sync workspace** button performs authenticated, read-only ClickUp requests through the server. Set `CLICKUP_API_TOKEN` and optional `CLICKUP_WORKSPACE_ID` in Vercel's environment, then redeploy. Never use a `NEXT_PUBLIC_` token. The connected ChatGPT account does not automatically supply credentials to Vercel.
+Production runs on Next.js with Postgres and the Vercel Workflow SDK. The Neon Free integration can supply `DATABASE_URL`; `POSTGRES_URL` is also accepted. Database schema creation is additive and runs on the server at first connection. No secrets belong in client-side variables.
 
-Sync reads hierarchy, effective List configuration, fields, and all accessible task pages, including closed tasks and subtasks. Progress and Cancel are available. A failed or cancelled refresh leaves the existing dashboard intact. A successful refresh updates the current browser session; **Export snapshot** includes `activityReport`. Reloading restores the deployed snapshot. Durable shared storage and background sync are the next foundation step.
+Required Production variables:
+- `ADMIN_USERNAME` and `ADMIN_PASSWORD`: existing private-console login.
+- `CLICKUP_API_TOKEN`: server-only ClickUp credential.
+- `DATABASE_URL`: PostgreSQL URL from the integration.
+- `CLICKUP_WORKSPACE_ID`: defaults to `1230709`.
 
-List inventory supports ascending/descending sorting by name, Space, Folder, suggested standard, alignment, differences, and unknown checks. Sorting applies to all filtered results before pagination; unassessed values stay last. Stale Lists can sort by severity, oldest/newest activity, or name.
+Connect the database to Production, then redeploy. Use a separate database/branch if enabling Preview or Development. Vercel Fluid compute must be enabled for efficient Workflow execution; the project currently has it enabled. The Workflow SDK manages durable dispatch on Vercel without a separate queue credential or cron job. Do not put Basic authentication in front of its generated `/.well-known/workflow/` transport endpoints: the production Workflow transport authenticates its own queue deliveries. User-facing APIs remain protected by the console login and same-origin write checks.
+
+**Sync workspace** queues a background read. You can close the browser and return later. The worker saves bounded checkpoints, retries failed steps, allows only one active job per workspace, and publishes the snapshot plus activity report together only when all reads finish. Failed/cancelled syncs retain the previous snapshot. Cancellation is cooperative: an in-flight read may finish, but cannot publish after cancellation. “Resume sync” appears after two minutes without progress, to recover an interrupted dispatch. Ten recent jobs appear in the UI. Manual sync only: no recurring schedule or paid service was enabled.
+
+The new **Admin overview** links to inactivity and review queues. **List reviews** saves Keep active / Needs review / Archive candidate decisions, owner labels, reasons, and follow-up dates. It keeps append-only decision history and rejects stale edits. Dates are evaluated in America/New_York. Owners are labels; saving a review does not notify or assign anyone in ClickUp. Archive candidates are never automatically archived. Shared Basic credentials identify the admin account, not individual people.
+
+The application retains saved snapshots and review history in your database. Free plans have provider quotas; no automatic paid upgrade is configured. The deployed starting snapshot remains available when the database is missing or temporarily unavailable. Missing saved-data connectivity is visibly reported; decisions cannot be saved offline. Initial history is empty until decisions are recorded.
+
+Inventory sorts by name, Space, Folder, standard, alignment, differences, or unknown checks before pagination. Unassessed values stay last. Stale Lists sort by severity or activity date. Snapshot exports include the current activity report and review decisions.
+
+### Development and checks
+
+Use Node 22 and `npm ci`. Run `npm run dev` with a separate development database and ClickUp token when testing background workflows. Local Workflow state is generated in `.workflow-data` and excluded from Git. Workflow-generated routes are also ignored.
+
+`npm test` covers governance, activity boundaries, actual PostgreSQL semantics using PGlite, optimistic review concurrency, workspace isolation, job leases, cancellation, atomic publication, and paginated sync. Run `npm run build` followed by `node scripts/check-production.mjs` for production auth/API smoke checks. Smoke tests use temporary credentials and explicitly clear database/API credentials.

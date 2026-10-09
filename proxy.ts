@@ -9,4 +9,4 @@ export function proxy(request:NextRequest){
  response.headers.set("X-Robots-Tag","noindex, nofollow");
  return response;
 }
-export const config={matcher:["/((?!_next/static|_next/image|favicon.svg).*)"]};
+export const config={matcher:["/((?!_next/static|_next/image|favicon.svg|.well-known/workflow/).*)"]};

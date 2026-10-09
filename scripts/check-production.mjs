@@ -3,7 +3,7 @@ import {randomBytes} from 'node:crypto';
 import assert from 'node:assert/strict';
 const password=randomBytes(24).toString('hex');
 async function exercise(configured){
- const child=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3100'],{env:{...process.env,ADMIN_USERNAME:configured?'test-owner':'',ADMIN_PASSWORD:configured?password:'',CLICKUP_API_TOKEN:''},stdio:['ignore','pipe','pipe']});
+ const child=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3100'],{env:{...process.env,ADMIN_USERNAME:configured?'test-owner':'',ADMIN_PASSWORD:configured?password:'',CLICKUP_API_TOKEN:'',DATABASE_URL:'',POSTGRES_URL:''},stdio:['ignore','pipe','pipe']});
  let logs='';child.stdout.on('data',x=>logs+=x);child.stderr.on('data',x=>logs+=x);
  const origin='http://127.0.0.1:3100';
  try{
@@ -15,14 +15,17 @@ async function exercise(configured){
   if(configured){
    const auth={Authorization:'Basic '+Buffer.from('test-owner:'+password).toString('base64')};
    assert.equal((await fetch(origin+'/api/sync')).status,401);
-   const config=await fetch(origin+'/api/sync',{headers:auth});assert.equal(config.status,200);assert.deepEqual(await config.json(),{configured:false});
+   const config=await fetch(origin+'/api/sync',{headers:auth});assert.equal(config.status,200);assert.deepEqual(await config.json(),{configured:false,storageConfigured:false});
    assert.equal((await fetch(origin+'/api/sync',{method:'POST',headers:{...auth,Origin:'https://other.example','Content-Type':'application/json'},body:'{"kind":"hierarchy"}'})).status,403);
    const missing=await fetch(origin+'/api/sync',{method:'POST',headers:{...auth,Origin:origin,'Content-Type':'application/json'},body:'{"kind":"hierarchy"}'});assert.equal(missing.status,503);
    assert.match((await missing.json()).error,/CLICKUP_API_TOKEN/);
+   for(const path of ['/api/control-room','/api/reviews?listId=1','/api/sync/cancel','/api/sync/resume'])assert.equal((await fetch(origin+path)).status,401);
+   const control=await fetch(origin+'/api/control-room',{headers:auth});assert.equal(control.status,200);assert.equal((await control.json()).storage,'missing');
+   const review=await fetch(origin+'/api/reviews',{method:'POST',headers:{...auth,Origin:origin,'Content-Type':'application/json'},body:'{}'});assert.equal(review.status,503);
    console.log('PASS sync authentication, origin enforcement, and missing-token handling');
    const wrong=await fetch(origin,{headers:{Authorization:'Basic '+Buffer.from('test-owner:wrong').toString('base64')}});assert.equal(wrong.status,401);
    const ok=await fetch(origin,{headers:{Authorization:'Basic '+Buffer.from('test-owner:'+password).toString('base64')}});
-   assert.equal(ok.status,200);assert.ok((await ok.text()).includes('Ardent'));assert.match(ok.headers.get('cache-control'),/private/);
+   assert.equal(ok.status,200);assert.ok((await ok.text()).includes('Admin overview'));assert.match(ok.headers.get('cache-control'),/private/);
   }
   console.log(configured?'PASS authorized HTML, rejected wrong credentials and anonymous HTML/RSC':'PASS unconfigured deployment returns 503 without workspace data');
  }finally{child.kill('SIGTERM');await new Promise(r=>child.once('exit',r));}

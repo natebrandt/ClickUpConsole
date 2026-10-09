@@ -16,7 +16,8 @@
     "sync:clickup": "node scripts/sync-clickup.mjs",
     "typecheck": "tsc --noEmit",
     "dev:sites": "node scripts/run-framework.mjs dev",
-    "build:sites": "node scripts/run-framework.mjs build"
+    "build:sites": "node scripts/run-framework.mjs build",
+    "sync:activity": "node scripts/sync-activity.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

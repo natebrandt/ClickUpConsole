@@ -111,3 +111,24 @@ The stale-plan check compares the complete snapshot including timestamp, so even
 Tests cover status order/types, canonical field identity, unknown data, inference precedence, duplicate targets, immutable snapshot fingerprints, stale-plan rejection, blocked writes, webhook signature tampering and rule scope/echo prevention. UI checks cover search, List inspection and dry-run plan creation. WebMCP read comparisons were checked with valid and invalid IDs.
 
 The public API refresh script is included and syntax-checked but was not run against an independently supplied API token. The initial dataset came from the existing connector. Native automation writes, webhook delivery and any mutation execution are deliberately not implemented.
+
+## Stale Lists
+
+The Stale Lists view flags the last observed task update:
+- Amber: strictly older than six calendar months.
+- Red: strictly older than twelve calendar months.
+- Unknown: no readable date, incomplete collection, or tasks with missing update dates.
+
+Cutoffs use UTC calendar months, with month-end clamping, evaluated at activity collection time. Dates display in America/New_York. Counts and filters use the existing List inventory; activity collection has its own visible timestamp. This prevents an aging snapshot being mistaken for proof of current inactivity.
+
+The activity scan paginates all accessible workspace tasks, including closed tasks and subtasks, and groups by home List. It stores only timestamps and counts. It does not independently measure List-level edits/comments, deleted/archived tasks, or tasks linked from a different home List. A flag is a review candidate, never an automatic archival action.
+
+Run `npm run sync:activity` with a local CLICKUP_API_TOKEN to refresh data/activity.json, then rebuild and deploy. A failed scan retains the prior report. To include newly created Lists, refresh the hierarchy first with sync:clickup. Activity metadata is served behind the existing production authentication gate.
+
+### Dashboard refresh and sorting
+
+The **Sync workspace** button performs authenticated, read-only ClickUp requests through the server. Set `CLICKUP_API_TOKEN` and optional `CLICKUP_WORKSPACE_ID` in Vercel's environment, then redeploy. Never use a `NEXT_PUBLIC_` token. The connected ChatGPT account does not automatically supply credentials to Vercel.
+
+Sync reads hierarchy, effective List configuration, fields, and all accessible task pages, including closed tasks and subtasks. Progress and Cancel are available. A failed or cancelled refresh leaves the existing dashboard intact. A successful refresh updates the current browser session; **Export snapshot** includes `activityReport`. Reloading restores the deployed snapshot. Durable shared storage and background sync are the next foundation step.
+
+List inventory supports ascending/descending sorting by name, Space, Folder, suggested standard, alignment, differences, and unknown checks. Sorting applies to all filtered results before pagination; unassessed values stay last. Stale Lists can sort by severity, oldest/newest activity, or name.
